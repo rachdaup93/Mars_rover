@@ -20,9 +20,9 @@ var Obstacles = {
   obsC: [4,0]
 };
 
-map = new Array(2);
-map[0] = new Array(10); // x axis
-map[1] = new Array(10); // y axis
+var par = document.createElement("p");
+var br;
+var textnode;
 
 function goXdirection(rover, direction){
   var movement = 0;
@@ -122,19 +122,28 @@ function directRover(rover, direction){
   }
 
   else{
-    console.log("Invalid Input: Rover did not change.");
+    br = document.createElement("br");
+    textnode = document.createTextNode("Invalid Input: Rover did not change.");
+    par.appendChild(textnode);
+    par.appendChild(br);
   }
-
-  console.log("Rover " + rover.id + "'s location and direction: Facing: " + rover.char + " Coordinates: [" + rover.position[0] + ", " + rover.position[1] + "]");
+  br = document.createElement("br");
+  textnode = document.createTextNode("Rover " + rover.id + "'s location and direction: Facing: " + rover.char + " Coordinates: [" + rover.position[0] + ", " + rover.position[1] + "]");
+  par.appendChild(textnode);
+  par.appendChild(br);
+  document.getElementById("rovers_log").appendChild(par);
 };
 
 function checkObstacle(x,y, rover){
+  br = document.createElement("br");
   var new_position = x + "," + y;
   if(rover.id == "A"){
     if(new_position != roverB.position)
       return true;
     else{
-      console.log("Rover detected Rover B in its path. Rover " + rover.id + " cannot move.");
+      textnode = document.createTextNode("Rover detected Rover B in its path. Rover " + rover.id + " cannot move.");
+      par.appendChild(textnode);
+      par.appendChild(br);
       return false;
     }
   }
@@ -142,14 +151,18 @@ function checkObstacle(x,y, rover){
     if(new_position != roverA.position)
       return true;
       else{
-        console.log("Rover detected Rover A in its path. Rover " + rover.id + " cannot move.");
+        textnode = document.createTextNode("Rover detected Rover A in its path. Rover " + rover.id + " cannot move.");
+        par.appendChild(textnode);
+        par.appendChild(br);
         return false;
       }
   }
   if(new_position != Obstacles.ob && new_position != Obstacles.obsB && new_position != Obstacles.obsC)
     return true;
   else{
-    console.log("Rover detected obstacle in its path. Rover " + rover.id + " cannot move.");
+    textnode = document.createTextNode("Rover detected obstacle in its path. Rover " + rover.id + " cannot move.");
+    par.appendChild(textnode);
+    par.appendChild(br);
     return false;
   }
 };
@@ -159,8 +172,44 @@ function controltheRover(rover, user_commands){
   for(var i=0; i < rover.direction.length; i++){
     directRover(rover, rover.direction[i]);
   }
+    map();
 };
 
-controltheRover(roverA, "rfflffffrsbbbblrffrbb");
-controltheRover(roverB, "ffffrsbbbblrffrbb");
-controltheRover(roverB, "fffflllrbsfffbrlr");
+function map(){
+    var row;
+    var column;
+    var info;
+    var current_position;
+    document.getElementById("map").innerHTML = "";
+    for(var i=5; i >= -5; i--){
+        row = document.createElement("div");
+        row.className = "row";
+        for(var j=-5; j <= 5; j++){
+        current_position = j + "," + i;
+            console.log(current_position);
+        column = document.createElement("div");
+        column.className = "col-sm-1 col-xs-1";
+        if(current_position == roverA.position){
+               column.className += " rover";
+               textnode = document.createTextNode(roverA.id + " " + roverA.char);
+        }
+        else if(current_position == roverB.position){
+               column.className += " rover";
+               textnode = document.createTextNode(roverB.id + " " + roverB.char);
+        }
+        else if(current_position == Obstacles.obsA || current_position == Obstacles.obsB || current_position == Obstacles.obsC){
+            column.className += " obstacle";
+            textnode = document.createTextNode("**");
+        }
+        else{
+           column.className += " cell";
+           textnode = document.createTextNode(" "); 
+        }
+        column.appendChild(textnode);
+        row.appendChild(column);
+        document.getElementById("map").appendChild(row);
+        }
+    }
+};
+
+map();
