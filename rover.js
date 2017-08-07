@@ -1,3 +1,5 @@
+//Rover A
+
 var roverA = {
   id: "A",
   position: [0,0], // x and y coordinates
@@ -6,6 +8,7 @@ var roverA = {
   char: "N"
 };
 
+//Rover B
 var roverB = {
   id: "B",
   position: [1,0], // x and y coordinates
@@ -14,15 +17,20 @@ var roverB = {
   char: "E"
 };
 
+// Obstacles
 var Obstacles = {
-  obsA: [3,4],
-  obsB: [5,-1],
-  obsC: [4,0]
+  obsA: [0,4],
+  obsB: [0,-1],
+  obsC: [0,2]
 };
 
 var par = document.createElement("p");
 var br;
 var textnode;
+
+random_coordinates(Obstacles.obsA);
+random_coordinates(Obstacles.obsB);
+random_coordinates(Obstacles.obsC);
 
 function goXdirection(rover, direction){
   var movement = 0;
@@ -181,10 +189,7 @@ function controltheRover(rover){
 };
 
 function map(){
-    var row;
-    var column;
-    var info;
-    var current_position;
+    var row, column, info, current_position;
     document.getElementById("map").innerHTML = "";
     for(var i=5; i >= -5; i--){
         row = document.createElement("div");
@@ -215,5 +220,16 @@ function map(){
         }
     }
 };
+
+function random_coordinates(obstacle){
+    var x,y;
+    do{
+           x = Math.floor((Math.random() * 11) - 5);
+           y = Math.floor((Math.random() * 11) - 5);
+          current_position = x + "," + y;
+    }while(current_position == roverA.position || current_position == roverB.position)
+           obstacle[0] = x;
+           obstacle[1] = y;
+}
 
 map();
