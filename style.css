@@ -1,49 +1,60 @@
 @import url('https://fonts.googleapis.com/css?family=Megrim|Roboto+Slab:300,400,700');
 html,body{
-    font-size: 11px;
+    font-size: 12px;
     background-image: url(astronomy-background.jpg);
     background-position: center;
+    background-size: cover;
     background-repeat: no-repeat;
+    
+    color: #fff;
 }
 
 .container{
     width: 100%;
     padding: 20px;
 }
-#instructions{
 
-}
-
-#instructions h1{
+h1{
     font-family: "Megrim", sans-serif;
     text-align: center;
     font-size: 3rem;
     color: #fff;
     border-bottom: solid 1px #fff;
+    padding: 0 0 20px 0;
+    margin: 0 0 20px 0;
 }
 
-#map{
+h2,p{
+    font-family: "Roboto Slab", serif;
+}
+
+ul{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+h2{
+    font-weight: bold;
+    font-size: 2.3rem;
+}
+
+#instructions .input-group{
+    margin: 10px;
+    max-width: 70%;
 }
 
 #log{
     background-color: #000;
     opacity: .8;
     overflow-y: scroll;
-    height: 500px;
+    height: 560px;
 }
 
-#log h2,p{
-    font-family: "Roboto Slab", serif;
-    font-size: 1.2rem;
-    color: #fff;
+#log p{
+    font-size: 1rem;
 }
 
-#log h2{
-    font-weight: bold;
-    font-size: 2.3rem;
-}
-
-.cell, .rover, .obstacle{
+.cell, .rover, .obstacle {
     width: 9%;
     height: 50px;
     border: solid 1px white;

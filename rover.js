@@ -138,9 +138,7 @@ function checkObstacle(x,y, rover){
   br = document.createElement("br");
   var new_position = x + "," + y;
   if(rover.id == "A"){
-    if(new_position != roverB.position)
-      return true;
-    else{
+    if(new_position == roverB.position){
       textnode = document.createTextNode("Rover detected Rover B in its path. Rover " + rover.id + " cannot move.");
       par.appendChild(textnode);
       par.appendChild(br);
@@ -148,17 +146,16 @@ function checkObstacle(x,y, rover){
     }
   }
   else{
-    if(new_position != roverA.position)
-      return true;
-      else{
+    if(new_position == roverA.position){
         textnode = document.createTextNode("Rover detected Rover A in its path. Rover " + rover.id + " cannot move.");
         par.appendChild(textnode);
         par.appendChild(br);
         return false;
       }
   }
-  if(new_position != Obstacles.ob && new_position != Obstacles.obsB && new_position != Obstacles.obsC)
+  if(new_position != Obstacles.obsA && new_position != Obstacles.obsB && new_position != Obstacles.obsC){
     return true;
+  }
   else{
     textnode = document.createTextNode("Rover detected obstacle in its path. Rover " + rover.id + " cannot move.");
     par.appendChild(textnode);
@@ -167,7 +164,15 @@ function checkObstacle(x,y, rover){
   }
 };
 
-function controltheRover(rover, user_commands){
+function controltheRover(rover){
+    if(rover.id == "A"){
+        var user_commands = document.getElementById("roverA_control").value;
+        document.getElementById("roverA_control").value= "";
+    }
+    else{
+        var user_commands = document.getElementById("roverB_control").value;
+        document.getElementById("roverB_control").value= "";
+    }
   rover.direction = user_commands;
   for(var i=0; i < rover.direction.length; i++){
     directRover(rover, rover.direction[i]);
@@ -186,20 +191,19 @@ function map(){
         row.className = "row";
         for(var j=-5; j <= 5; j++){
         current_position = j + "," + i;
-            console.log(current_position);
         column = document.createElement("div");
         column.className = "col-sm-1 col-xs-1";
         if(current_position == roverA.position){
-               column.className += " rover";
-               textnode = document.createTextNode(roverA.id + " " + roverA.char);
+               column.className += " glyphicon glyphicon glyphicon-font rover";
+               textnode = document.createTextNode(" " + roverA.char);
         }
         else if(current_position == roverB.position){
-               column.className += " rover";
-               textnode = document.createTextNode(roverB.id + " " + roverB.char);
+               column.className += " glyphicon glyphicon-bold rover";
+               textnode = document.createTextNode(" " + roverB.char);
         }
         else if(current_position == Obstacles.obsA || current_position == Obstacles.obsB || current_position == Obstacles.obsC){
-            column.className += " obstacle";
-            textnode = document.createTextNode("**");
+            column.className += " glyphicon glyphicon-warning-sign obstacle";
+            textnode = document.createTextNode("");
         }
         else{
            column.className += " cell";

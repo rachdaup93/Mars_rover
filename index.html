@@ -3,19 +3,37 @@
 	<title>Mars Rover Kata!</title>
     <!-- Bootstap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="reset.css" type="text/css">
+
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
 <div class="container">
     <div class="col-md-3 col-sm-12 col-xs-12" id="instructions">
         <h1>The Mar's Rovers</h1>
+        <p>Enter an array of character commands for each rover, which can include:</p>
+        <ul>
+            <li>f for go forward</li>
+            <li>b for go back</li>
+            <li>r for turn right&#42;</li>
+            <li>l for turn left&#42;</li>
+        </ul>
+        <p>*The rovers just change their directions when you use this command. They won't move right or left automatically. To make them go right or left, the you needs to specify the change of direction and then the actual movement.</p>
         <div class="input-group controller">
-        <input type="text" class="form-control" placeholder="Rover A Controls">
+        <input type="text" class="form-control" placeholder="Rover A Controls" id="roverA_control">
         <span class="input-group-btn">
-            <button class="btn btn-default" onclick="controltheRover(roverA, 'rfflffffrsbbbblrffrbb')" type="button" id="roverA_button">Go!</button>
+            <button class="btn btn-default" onclick="controltheRover(roverA)" type="button" id="roverA_button">Go!</button>
         </span>
         </div>
+        <div class="input-group controller">
+        <input type="text" class="form-control" placeholder="Rover B Controls" id="roverB_control">
+        <span class="input-group-btn">
+            <button class="btn btn-default" onclick="controltheRover(roverB)" type="button" id="roverB_button">Go!</button>
+        </span>
+        </div>
+        <h2>On the Grid:</h2>
+        <p>The rovers will be represented as their letter id and the direction (N,E,S,W) they are facing.</p>
+        <p>Obstacles will be represented as a warning symbol.</p>
+        <p>The robots are smart enough to detect the obstacles and other rovers in their path before landing on them. Review the "Rovers' Log" to keep track.</p>
     </div>
     <div class="col-md-5 col-sm-12 col-xs-12" id="map">
     </div>
